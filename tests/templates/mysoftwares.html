@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+ {% if data %}
+{% for content in data %}
+    <div class="animated rollIn delay-20s">
+    <div class="content">
+    <div class="feed-item card">
+      <div class="feed-header clearfix">
+        <span class="user-image left">
+          <img src={{ content.softwareinfo.companylogo.url }} width="50px" />
+        </span>
+        <span class="user-name"><a href="" data-entity="person">{{content.softwareinfo.seller}}</a>
+        </span>
+      </div>
+      <div class="feed-image">
+          <label class="label label-info" >Product Image:</label> <br/>
+        <img src={{ content.softwareinfo.productimage.url }}/>
+      </div>
+
+      <div class="feed-content">
+          <label class="label label-info" >Software Name:</label><span class="event-title">{{ content.softwareinfo.name }}</span>
+          <label class="label label-info" >Category: </label><span class="event-title">{{ content.softwareinfo.list.cname }}</span>
+          <label class="label label-info">Desciption: </label>      <span class="event-title">{{ content.softwareinfo.description }}</span>
+          <label class="label label-info" >Price: </label><span class="event-title">{{ content.softwareinfo.price }}</span>
+          <hr style="border: none;height: 1px;background-color: #333;">
+          <span class="event-buy">
+              <form action="/homepage/categories/products/productpurchased/{{ content.id }}">
+             <button class="btn btn-primary" type="submit" onclick="isDownloading();" target="_blank" id = "downloading">PAY</button>
+                  </form>
+          </span>
+    </div>
+        </div>
+    </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="jumbotron">
+      <div class="container">
+        <h1>No Purchases YET!</h1>
+        <p>You haven't purchased anything so far </p>
+          <p> Go to Softwares and purchase one to fill this page :) </p>
+      </div>
+    </div>
+{% endif %}
+
+<script>
+    function isDownloading(){
+        var spinner = document.getElementById("downloading");
+        spinner.innerHTML = "Downloading...";
+    }
+</script>
+
+
+
+{% endblock %}
